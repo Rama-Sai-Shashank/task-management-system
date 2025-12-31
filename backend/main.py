@@ -5,10 +5,13 @@ from routes.tasks import task_router
 
 app = FastAPI()
 
-# ✅ CORS CONFIG
+# ✅ CORS CONFIG (Local + Vercel)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # React URL
+    allow_origins=[
+        "http://localhost:3000",                      # local React
+        "https://task-management-system-ram.vercel.app"  # Vercel frontend
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
