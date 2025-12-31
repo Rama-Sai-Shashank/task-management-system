@@ -1,8 +1,7 @@
-// Dashboard.js
 import styles from "./Dashboard.module.css";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import API from "../services/api";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -13,59 +12,97 @@ function Dashboard() {
   const [newTask, setNewTask] = useState("");
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
+  const [loading, setLoading] = useState(true);
 
+  // 🔐 Redirect if not logged in
   useEffect(() => {
-    if (!token) navigate("/login");
+    if (!token) {
+      navigate("/login");
+    }
   }, [token, navigate]);
 
+  // 🔐 Memoized auth header (IMPORTANT)
+  const authHeader = useMemo(
+    () => ({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+    [token]
+  );
+
+  // 👤 Fetch user profile
   const fetchProfile = useCallback(async () => {
-    const res = await axios.get("http://127.0.0.1:8000/auth/me", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setProfile(res.data);
-  }, [token]);
+    try {
+      const res = await API.get("/auth/me", authHeader);
+      setProfile(res.data);
+    } catch (err) {
+      console.error(err);
+      localStorage.removeItem("token");
+      navigate("/login");
+    }
+  }, [authHeader, navigate]);
 
+  // 📋 Fetch tasks
   const fetchTasks = useCallback(async () => {
-    const res = await axios.get("http://127.0.0.1:8000/tasks", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setTasks(res.data);
-  }, [token]);
+    try {
+      const res = await API.get("/tasks", authHeader);
+      setTasks(res.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  }, [authHeader]);
 
+  // 🔄 Initial load
   useEffect(() => {
     fetchProfile();
     fetchTasks();
   }, [fetchProfile, fetchTasks]);
 
+  // ➕ Add task
   const addTask = async () => {
     if (!newTask.trim()) return;
-    await axios.post(
-      "http://127.0.0.1:8000/tasks",
-      { title: newTask },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    setNewTask("");
-    fetchTasks();
+
+    try {
+      await API.post("/tasks", { title: newTask }, authHeader);
+      setNewTask("");
+      fetchTasks();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
+  // ✅ Toggle task
   const toggleTask = async (task) => {
-    await axios.put(
-      `http://127.0.0.1:8000/tasks/${task._id}`,
-      { completed: !task.completed },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    fetchTasks();
+    try {
+      await API.put(
+        `/tasks/${task._id}`,
+        { completed: !task.completed },
+        authHeader
+      );
+      fetchTasks();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
+  // 🗑 Delete task
   const deleteTask = async (id) => {
-    await axios.delete(`http://127.0.0.1:8000/tasks/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    fetchTasks();
+    try {
+      await API.delete(`/tasks/${id}`, authHeader);
+      fetchTasks();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
+  // 🔍 Search & filter
   const visibleTasks = tasks
-    .filter((t) => t.title.toLowerCase().includes(search.toLowerCase()))
+    .filter((t) =>
+      t.title.toLowerCase().includes(search.toLowerCase())
+    )
     .filter((t) => {
       if (filter === "completed") return t.completed;
       if (filter === "pending") return !t.completed;
@@ -90,7 +127,7 @@ function Dashboard() {
             className={styles.logoutBtn}
             onClick={() => {
               localStorage.removeItem("token");
-              navigate("/");
+              navigate("/login");
             }}
           >
             Logout
@@ -129,7 +166,9 @@ function Dashboard() {
         </div>
 
         {/* Task List */}
-        {visibleTasks.length === 0 ? (
+        {loading ? (
+          <p className={styles.userInfo}>Loading tasks...</p>
+        ) : visibleTasks.length === 0 ? (
           <p className={styles.userInfo}>No tasks found</p>
         ) : (
           visibleTasks.map((task) => (
@@ -158,7 +197,9 @@ function Dashboard() {
                 </span>
 
                 {task.completed && (
-                  <span className={styles.completedBadge}>Completed</span>
+                  <span className={styles.completedBadge}>
+                    Completed
+                  </span>
                 )}
               </div>
 
