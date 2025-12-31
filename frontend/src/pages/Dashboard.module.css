@@ -1,0 +1,219 @@
+/* ===============================
+   Dashboard Layout
+================================ */
+
+.dashboardWrapper {
+  min-height: 100vh;
+  padding: 80px 24px;
+
+  background:
+    radial-gradient(1200px 600px at 10% 10%, #6366f1 0%, transparent 60%),
+    radial-gradient(1200px 600px at 90% 20%, #22c55e 0%, transparent 55%),
+    linear-gradient(180deg, #020617, #020617);
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.dashboardCard {
+  width: 100%;
+  max-width: 1200px;
+
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(22px);
+
+  padding: 40px;
+  border-radius: 28px;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.55);
+}
+
+
+/* ===============================
+   Header
+================================ */
+
+.dashboardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 36px;
+}
+
+.dashboardTitle {
+  font-size: 30px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.userInfo {
+  color: #c7d2fe;
+  margin-top: 6px;
+}
+
+.logoutBtn {
+  background: transparent;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  padding: 8px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.logoutBtn:hover {
+  background: rgba(239, 68, 68, 0.12);
+}
+
+/* ===============================
+   Controls (Add / Search / Filter)
+================================ */
+
+.taskControls {
+  display: grid;
+  grid-template-columns: 1.4fr 0.6fr 1fr 0.6fr;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.taskInput {
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-size: 14px;
+  outline: none;
+}
+
+.taskInput::placeholder {
+  color: #94a3b8;
+}
+
+/* Dropdown specific */
+.taskInput {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+
+  background-image:
+    linear-gradient(45deg, transparent 50%, #c7d2fe 50%),
+    linear-gradient(135deg, #c7d2fe 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) 55%,
+    calc(100% - 15px) 55%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.taskInput option {
+  background: #020617;
+  color: #ffffff;
+}
+
+.addBtn {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border: none;
+  border-radius: 14px;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.addBtn:hover {
+  opacity: 0.9;
+}
+
+/* ===============================
+   Task List
+================================ */
+
+.taskItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  margin-bottom: 14px;
+  transition: background 0.2s ease;
+}
+
+.taskItem:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.taskLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.taskCheckbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.taskText {
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.taskTextCompleted {
+  color: #a5b4fc;
+  text-decoration: line-through;
+}
+
+/* Completed state */
+.completedTask {
+  background: linear-gradient(135deg, #22c55e33, #22c55e11);
+}
+
+.completedBadge {
+  background: #22c55e;
+  color: #052e16;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+/* ===============================
+   Delete Button
+================================ */
+
+.deleteBtn {
+  background: transparent;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.deleteBtn:hover {
+  background: rgba(239, 68, 68, 0.12);
+}
+
+/* Text inputs – NO dropdown arrow */
+.textInput {
+  appearance: auto;
+  background-image: none !important;
+}
+
+/* Select dropdown – arrow only here */
+.selectInput {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+
+  background-image:
+    linear-gradient(45deg, transparent 50%, #c7d2fe 50%),
+    linear-gradient(135deg, #c7d2fe 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) 55%,
+    calc(100% - 15px) 55%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}

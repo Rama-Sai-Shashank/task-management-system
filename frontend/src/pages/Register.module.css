@@ -1,0 +1,75 @@
+.wrap{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  background: radial-gradient(1200px 600px at 10% 10%, #6366f1 0%, transparent 60%),
+              radial-gradient(1200px 600px at 90% 20%, #22c55e 0%, transparent 55%),
+              #020617;
+}
+
+.card{
+  width:440px;
+  padding:46px;
+  background: radial-gradient(1200px 600px at 10% 10%, #63ecf1 0%, transparent 60%),
+              radial-gradient(1200px 600px at 90% 20%, #c5a522 0%, transparent 55%),
+              #5f6581;
+  backdrop-filter: blur(20px);
+  border-radius:28px;
+  box-shadow:0 40px 120px rgba(0,0,0,.55);
+}
+
+.title{
+  font-size:28px;
+  font-weight:700;
+  color:#080808;
+  margin-bottom:8px;
+}
+
+.sub{
+  color:#080808;
+  margin-bottom:26px;
+}
+
+/* INPUT */
+.input{
+  width:100%;
+  padding:14px 16px;
+  margin-bottom:14px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.08);
+  color:#080808;
+  font-size:15px;
+}
+
+.input::placeholder{
+  color:#1f2a3a;
+}
+
+.input:focus{
+  outline:none;
+  border-color:#6366f1;
+  box-shadow:0 0 0 3px rgba(99,102,241,.25);
+}
+
+/* BUTTON */
+.primary{
+  width:100%;
+  margin-top:8px;
+  padding:14px;
+  border-radius:999px;
+  border:none;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  color:#080808;
+  font-weight:700;
+}
+
+.footer{
+  margin-top:22px;
+  text-align:center;
+  color:#080808;
+}
+
+.link{
+  color:#081140;
+}

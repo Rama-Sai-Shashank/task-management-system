@@ -1,0 +1,56 @@
+.homeWrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(1200px 600px at 10% 10%, #6366f1 0%, transparent 60%),
+              radial-gradient(1200px 600px at 90% 20%, #22c55e 0%, transparent 55%),
+              #020617;
+}
+
+.homeCard {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(22px);
+  padding: 60px;
+  border-radius: 28px;
+  width: 620px;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.45);
+  text-align: center;
+}
+
+.homeTitle {
+  font-size: 42px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 14px;
+}
+
+.homeSub {
+  font-size: 18px;
+  color: #c7d2fe;
+  margin-bottom: 40px;
+}
+
+.homeButtons {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+
+.primaryBtn {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border: none;
+  padding: 14px 36px;
+  border-radius: 999px;
+  font-size: 16px;
+  color: white;
+}
+
+.outlineBtn {
+  background: transparent;
+  border: 1px solid #6366f1;
+  padding: 14px 36px;
+  border-radius: 999px;
+  font-size: 16px;
+  color: #c7d2fe;
+}
